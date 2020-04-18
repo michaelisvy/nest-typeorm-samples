@@ -13,6 +13,8 @@ export class Customer  extends BaseEntity {
   @Column()
   lastName: string;
 
-  @OneToMany(type => Account, account => account.customer)
-  accounts: Account;
+  @OneToMany(type => Account, account => account.customer, {
+    cascade: true,
+})
+  accounts: Promise<Account[]>;
 }

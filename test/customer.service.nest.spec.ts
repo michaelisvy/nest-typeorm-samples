@@ -8,16 +8,18 @@ describe('AppService', () => {
 
   beforeEach(async () => {
     const app: TestingModule = await Test.createTestingModule({
-      providers: [CustomerService, CustomerRepository], 
+      providers: [CustomerService], 
     }).compile();
 
     customerService = app.get<CustomerService>(CustomerService);
   });
 
   describe('root', () => {
-    it('should return "Hello World!"', () => {
-      let customer = new Customer("John", "Black");
-      customerService.findAll();
+    it('should return "Hello World!"', async () => {
+      let customer = new Customer();
+      customer.firstName = "John";
+      customer.lastName = "Black";
+      await customerService.findAll();
 
       expect(customerService.getHello()).toBe('Hello World!');
     });
