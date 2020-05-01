@@ -1,15 +1,28 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "declaration": true,
-    "removeComments": true,
-    "emitDecoratorMetadata": true,
-    "experimentalDecorators": true,
-    "target": "es2017",
-    "sourceMap": true,
+    "types": ["node", "express", "jest"],
+    "baseUrl": ".",
+    "paths": {
+      "@src/*": ["./src/*"],
+      "@api/*": ["./api/*"],
+      "@test/*": ["./tests/*"]
+    },
     "outDir": "./dist",
-    "baseUrl": "./",
-    "incremental": true
+    "allowJs": true,
+    "esModuleInterop": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    "sourceMap": true
   },
-  "exclude": ["node_modules", "dist"]
+  "include": [
+    "processes/**/*",
+    "config/**/*",
+    "database/**/*",
+    "src/**/*",
+    "api/**/*",
+    "*.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
 }

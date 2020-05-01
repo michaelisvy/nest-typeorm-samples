@@ -1,23 +1,31 @@
-import { Test, TestingModule } from '@nestjs/testing';
-import { AppController } from '../src/customer.controller';
-import { CustomerService } from '../src/customer.service';
-import { CustomerRepository } from '../src/customer.repository';
+import * as request from 'supertest';
+import { Test } from '@nestjs/testing';
+import { INestApplication } from '@nestjs/common';
+import { AppModule } from '../src/app.module';
 
-describe('AppController', () => {
-  let appController: AppController;
+describe('Cats', () => {
+  let app: INestApplication;
 
-  beforeEach(async () => {
-    const app: TestingModule = await Test.createTestingModule({
-      controllers: [AppController],
-      providers: [CustomerService],
-    }).compile();
+  beforeAll(async () => {
+    const moduleRef = await Test.createTestingModule({
+      imports: [AppModule],
+    })
+      .compile();
 
-    appController = app.get<AppController>(AppController);
+    app = moduleRef.createNestApplication();
+    await app.init();
   });
 
-  describe('root', () => {
-    it('should return "Hello World!"', () => {
-      expect(appController.getHello()).toBe('Hello World!');
-    });
+  it(`/GET cats`, () => {
+    return request(app.getHttpServer())
+      .get('/cats')
+      .expect(200)
+      .expect({
+        data: catsService.findAll(),
+      });
+  });
+
+  afterAll(async () => {
+    await app.close();
   });
 });

@@ -3,22 +3,20 @@ import { CustomerRepository } from '../src/customer.repository';
 import { ConnectionManager } from '../src/db/connection.manager';
 
 describe('CustomerRepository', () => {
-  let customerRepository: CustomerRepository = new CustomerRepository();
+  const customerRepository: CustomerRepository = new CustomerRepository();
 
-  beforeEach(async () => {
-  }); 
 
   describe('root', () => {
     it('should save and find customer', async () => {
-      let connection = await ConnectionManager.createConnection();
-      let customerRepository = connection.getRepository(Customer);
-      let customer = new Customer();
+      const connection = await ConnectionManager.createConnection();
+      const customerRepository = connection.getRepository(Customer);
+      const customer = new Customer();
       customer.firstName = "John";
       customer.lastName = "Black";
       await customerRepository.save(customer);
       expect(customer.id).toBeGreaterThan(0);
 
-      let customers = await customerRepository.findByIds([customer.id]);
+      const customers = await customerRepository.findByIds([customer.id]);
       expect(customers[0].firstName).toBe("John");
       await connection.close();
     });

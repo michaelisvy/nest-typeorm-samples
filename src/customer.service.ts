@@ -7,17 +7,19 @@ import { ConnectionManager } from './db/connection.manager';
 @Injectable()
 export class CustomerService {
 
-  // constructor(
-  //   private customerRepository: CustomerRepository,
-  // ) {}
+  constructor(@InjectRepository(CustomerRepository) private customerRepository: CustomerRepository) {}
+
 
   getHello(): string {
     return 'Hello World!';
   }
 
   async findAll(): Promise<Customer[]> {
-    let connection = await ConnectionManager.createConnection();
-    let customerRepository = connection.getRepository(Customer);
-    return customerRepository.find();
+    return this.customerRepository.find();
+  }
+
+  async save(customers: Customer[]): Promise<Customer[]> {
+    return await this.customerRepository.save(customers);
+
   }
 }

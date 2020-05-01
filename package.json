@@ -53,6 +53,11 @@
     "tsconfig-paths": "^3.9.0",
     "typescript": "^3.7.4"
   },
+  "_moduleAliases": {
+    "@src": "src",
+    "@api": "api",
+    "@test": "test"
+  },
   "jest": {
     "moduleFileExtensions": [
       "js",
